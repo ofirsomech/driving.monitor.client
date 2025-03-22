@@ -14,8 +14,8 @@ const setAuthToken = (token: string | null) => {
 };
 
 // Register a new user
-export const registerUser = async (name: string, email: string, password: string) => {
-  const response = await axios.post(`${API_URL}/register`, { name, email, password });
+export const registerUser = async (fullName: string, email: string, password: string) => {
+  const response = await axios.post(`${API_URL}/register`, { fullName, email, password });
   
   // Save token to AsyncStorage
   if (response.data.token) {
