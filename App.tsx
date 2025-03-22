@@ -1,14 +1,8 @@
 import React from 'react';
-import { SafeAreaView, StatusBar } from 'react-native';
-import HomeScreen from './src/screens/HomeScreen';
+import 'react-native-gesture-handler';
+import AppNavigator from './src/navigation/AppNavigator';
 
-const App: React.FC = () => {
-  return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#f5f7fa' }}>
-      <StatusBar barStyle="dark-content" backgroundColor="#f5f7fa" />
-      <HomeScreen />
-    </SafeAreaView>
-  );
-};
+
+const App = () => <AppNavigator />;
 
 export default App;
