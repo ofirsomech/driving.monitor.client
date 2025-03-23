@@ -1,97 +1,186 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Driving Behavior Monitoring System
 
-# Getting Started
+## Overview
+This application monitors driving behavior by analyzing acceleration, braking, and turning data to identify unsafe driving patterns and calculate sustainability scores. The system consists of a Node.js backend API with MongoDB integration and a React Native mobile frontend.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Features
+- Real-time monitoring of driving behavior metrics
+- Automatic flagging of unsafe driving patterns
+- Sustainability score calculation
+- Data persistence using MongoDB
+- Cross-platform mobile interface
 
-## Step 1: Start Metro
+## Technology Stack
+### Backend
+- Node.js
+- Express
+- MongoDB
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+### Frontend
+- React Native
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+### Database
+- MongoDB
 
+## Setup Instructions
+
+### Prerequisites
+- Node.js (v14 or higher)
+- MongoDB
+- React Native development environment
+- npm or yarn
+
+### Backend Setup
+#### Clone the repository
 ```sh
-# Using npm
+git clone <repository-url>
+cd driving-behavior-monitor/backend
+```
+#### Install dependencies
+```sh
+npm install
+```
+#### Configure environment variables
+Create a `.env` file with the following variables:
+```sh
+PORT=5002
+MONGODB_URI=mongodb://localhost:27017/drivingBehavior
+```
+#### Start the server
+```sh
 npm start
-
-# OR using Yarn
-yarn start
 ```
+The server will run on `http://localhost:5002`
 
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
+### Frontend Setup
+#### Install dependencies
 ```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+npm install
 ```
+#### Configure the API endpoint
+Open `src/config.js` and update the `API_URL` to match your backend server address.
 
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
+#### Run the application
 ```sh
-bundle install
+# For iOS
+npx react-native run-ios
+
+# For Android
+npx react-native run-android
 ```
 
-Then, and every time you update your native dependencies, run:
+## API Documentation
 
+### Monitor Driving Behavior
+**Endpoint:** `POST /monitor-behavior`
+
+#### Request Body:
+```json
+{
+  "driverId": "string",
+  "acceleration": "number",
+  "braking": "number",
+  "turn": "number",
+  "timestamp": "string" (optional)
+}
+```
+
+#### Response:
+```json
+{
+  "driverId": "string",
+  "acceleration": "number",
+  "braking": "number",
+  "turn": "number",
+  "isFlag": "boolean",
+  "sustainabilityScore": "number",
+  "timestamp": "string"
+}
+```
+
+## Technical Details
+
+### Flagging Criteria
+The system flags driving behavior as unsafe when any of the following thresholds are exceeded:
+- **Acceleration** > 3.0 m/s²
+- **Braking** > 4.0 m/s²
+- **Turn** > 2.5 m/s²
+
+### Sustainability Score Calculation
+The sustainability score is calculated as follows:
+1. Normalize each metric (acceleration, braking, turn) against its maximum threshold.
+2. Calculate the average of these normalized values.
+3. Subtract this average from 1 to get the sustainability score.
+4. Round to 2 decimal places.
+
+**Formula:**
 ```sh
-bundle exec pod install
+Score = 1 - ((normalizedAcceleration + normalizedBraking + normalizedTurn) / 3)
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+## Usage Guide
 
-```sh
-# Using npm
-npm run ios
+### Mobile Application
+1. Launch the React Native app on your device or emulator.
+2. Start fake ride
+3. Tap the "Stop ride" button to process the data.
+4. View the results, including:
+   - Whether the driving was flagged as unsafe.
+   - The calculated sustainability score.
+   - All input values for reference.
 
-# OR using Yarn
-yarn ios
-```
+## Implementation Details
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+### Backend Architecture
+- RESTful API design with Express
+- MongoDB for data persistence
+- Input validation and error handling
+- Modular code structure for maintainability
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+### Frontend Design
+- Clean, intuitive user interface
+- Form validation
+- Error handling for API communication
+- Real-time feedback on submission
 
-## Step 3: Modify your app
+## Error Handling
+The application includes comprehensive error handling:
+- Input validation on both frontend and backend
+- Appropriate HTTP status codes for different error scenarios
+- User-friendly error messages
+- Network error handling
 
-Now that you have successfully run the app, let's make changes!
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+## Troubleshooting
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+### Common Issues
+#### MongoDB Connection Error
+- Ensure MongoDB is running.
+- Check the connection string in your `.env` file.
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+#### API Connection Failed
+- Verify the API URL in the frontend configuration.
+- Check that the backend server is running.
 
-## Congratulations! :tada:
+#### React Native Build Issues
+- Ensure all dependencies are installed.
+- Clear the cache:
+  ```sh
+  npx react-native start --reset-cache
+  ```
 
-You've successfully run and modified your React Native App. :partying_face:
+## Future Improvements
+- driver profiles
+- Historical data visualization
+- Real-time data collection from device sensors
+- Trip-based analysis
+- Notification system for unsafe driving patterns
 
-### Now what?
+## License
+MIT License
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+## Contributors
+- Ofir Somech
 
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## Acknowledgments
+This project was created as part of a coding assignment.

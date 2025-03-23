@@ -33,7 +33,7 @@ const RegisterScreen = ({ navigation }: any) => {
       <InputField label="Email" value={email} onChangeText={setEmail} placeholder="Enter your email" />
       <InputField label="Password" value={password} onChangeText={setPassword} placeholder="Enter your password" secureTextEntry />
       <AuthButton title="Register" onPress={handleRegister} />
-      <AuthButton title="Login Instead" onPress={() => navigation.navigate('LoginScreen')} />
+      <AuthButton title="Login Instead" onPress={() => navigation.navigate('Login')} />
     </View>
   );
 };

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import 'react-native-gesture-handler';
 import AppNavigator from './src/navigation/AppNavigator';
 import { loadToken } from './src/services/authService';
+import DrivingMonitor from './src/screens/DrivingMonitorScreen';
 
 
 const App = () => {
@@ -10,11 +11,15 @@ const App = () => {
     const initializeAuth = async () => {
       await loadToken();
     };
-    
+
     initializeAuth();
   }, []);
   return (
-    <AppNavigator />
+    <>
+
+      <AppNavigator />
+      {/* <DrivingMonitor /> */}
+    </>
   );
 }
 

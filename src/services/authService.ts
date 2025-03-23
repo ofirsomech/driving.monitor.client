@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'http://localhost:5002/api/auth';
+const API_URL = 'https://riving-monitor-server.onrender.com/api/auth';
 const TOKEN_KEY = 'auth_token';
 
 // Set axios default header with token

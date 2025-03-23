@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, TextInput, Text, StyleSheet } from 'react-native';
+import styles from '../styles/InputFieldStyle';
 
 interface InputFieldProps {
   label: string;
@@ -22,26 +23,5 @@ const InputField: React.FC<InputFieldProps> = ({ label, value, onChangeText, pla
     />
   </View>
 );
-
-const styles = StyleSheet.create({
-  inputGroup: {
-    marginBottom: 20,
-  },
-  inputLabel: {
-    fontSize: 16,
-    marginBottom: 5,
-    color: '#34495e',
-    fontWeight: 'bold',
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#dfe6e9',
-    borderRadius: 8,
-    paddingHorizontal: 15,
-    paddingVertical: 12,
-    fontSize: 16,
-    backgroundColor: '#f8f9fa',
-  },
-});
 
 export default InputField;

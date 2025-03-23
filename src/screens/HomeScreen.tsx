@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { jwtDecode } from 'jwt-decode';
 import InputField from '../components/InputField';
 import ResultModal from '../components/ResultModal';
-import { submitDrivingData, getAverageScore } from '../services/api';
+import { submitDrivingData, getAverageScore } from '../services/apiService';
 import { DrivingResult } from '../types';
 import styles from '../styles/HomeScreenStyles';
 
